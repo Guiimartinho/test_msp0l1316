@@ -1,0 +1,12 @@
+[
+   {
+      "directory" : "C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang/Debug",
+      "command"   : "clang++ -D__MSPM0L1306__ -I\"C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang\" -I\"C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang/Debug\" -I\"C:/ti/mspm0_sdk_2_01_00_03/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_01_00_03/source\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/include/c++/v1\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/lib/clang/15.0.7/include\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/include/c\"",
+      "file"      : "C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang/adc_to_uart.c"
+   },
+   {
+      "directory" : "C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang/Debug",
+      "command"   : "clang++ -D__MSPM0L1306__ -I\"C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang\" -I\"C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang/Debug\" -I\"C:/ti/mspm0_sdk_2_01_00_03/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_01_00_03/source\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/include/c++/v1\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/lib/clang/15.0.7/include\" -isystem\"C:/ti/ccstheia140/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS/include/c\"",
+      "file"      : "C:/Users/llgui/workspace_ccstheia/adc_to_uart_LP_MSPM0L1306_nortos_ticlang/Debug/ti_msp_dl_config.c"
+   }
+]
