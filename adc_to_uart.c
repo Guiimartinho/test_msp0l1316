@@ -1,45 +1,45 @@
-/*
- * Copyright (c) 2023, Texas Instruments Incorporated
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * *  Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * *  Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * *  Neither the name of Texas Instruments Incorporated nor the names of
- *    its contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 #include "ti_msp_dl_config.h"
 
+/**
+ * @brief Global flag to check ADC conversion.
+ */
 volatile bool gCheckADC;
+
+/**
+ * @brief Array to store ADC results (3 samples per pulse).
+ */
 volatile uint16_t gADCResults[3]; // Array for 3 samples
+
+/**
+ * @brief Pulse counter.
+ */
 volatile uint8_t pulseCount = 0;  // Pulse counter
 
+/**
+ * @brief Setup UART configuration.
+ */
 void setupUART(void);
+
+/**
+ * @brief Setup ADC configuration.
+ */
 void setupADC(void);
+
+/**
+ * @brief Transmit ADC results over UART.
+ */
 void transmitADCResults(void);
+
+/**
+ * @brief Delay function in milliseconds.
+ * 
+ * @param ms Milliseconds to delay.
+ */
 void delay_ms(uint32_t ms);
 
+/**
+ * @brief Main function to initialize peripherals and handle ADC to UART transmission.
+ */
 int main(void)
 {
     SYSCFG_DL_init();
@@ -68,6 +68,9 @@ int main(void)
     }
 }
 
+/**
+ * @brief ADC interrupt handler to capture ADC results.
+ */
 void ADC12_0_INST_IRQHandler(void)
 {
     static uint8_t sampleIndex = 0;
@@ -85,6 +88,9 @@ void ADC12_0_INST_IRQHandler(void)
     }
 }
 
+/**
+ * @brief Function to setup UART with specified configurations.
+ */
 void setupUART(void)
 {
     DL_UART_Main_ClockConfig uartClockConfig = {
@@ -105,13 +111,16 @@ void setupUART(void)
     DL_UART_Main_init(UART_0_INST, &uartConfig);
     DL_UART_Main_setOversampling(UART_0_INST, DL_UART_OVERSAMPLING_RATE_16X);
 
-    // Set calculated baud rate divisors
+    // Set calculated baud rate divisors for 115200 bps
     DL_UART_Main_setBaudRateDivisor(UART_0_INST, 17, 24);
     DL_UART_Main_enableFIFOs(UART_0_INST);
     DL_UART_Main_setTXFIFOThreshold(UART_0_INST, DL_UART_TX_FIFO_LEVEL_1_2_EMPTY);
     DL_UART_Main_enable(UART_0_INST);
 }
 
+/**
+ * @brief Function to setup ADC with specified configurations.
+ */
 void setupADC(void)
 {
     DL_ADC12_ClockConfig adcClockConfig = {
@@ -134,12 +143,15 @@ void setupADC(void)
         DL_ADC12_WINDOWS_COMP_MODE_DISABLED
     );
 
-    DL_ADC12_setSampleTime0(ADC12_0_INST, 500);
+    DL_ADC12_setSampleTime0(ADC12_0_INST, 500); // Set sampling time for 500 ns pulses
     DL_ADC12_clearInterruptStatus(ADC12_0_INST, DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
     DL_ADC12_enableInterrupt(ADC12_0_INST, DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
     DL_ADC12_enableConversions(ADC12_0_INST);
 }
 
+/**
+ * @brief Function to transmit ADC results via UART.
+ */
 void transmitADCResults(void)
 {
     for (int i = 0; i < 3; i++) {
@@ -150,6 +162,11 @@ void transmitADCResults(void)
     }
 }
 
+/**
+ * @brief Delay function implementation using a busy loop.
+ * 
+ * @param ms Number of milliseconds to delay.
+ */
 void delay_ms(uint32_t ms)
 {
     // Assuming the system clock is 48 MHz
